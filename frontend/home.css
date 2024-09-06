@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: #333;
+}
+
+header{
+  height: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+header a {
+  text-decoration: none;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #FFF;
+}
+
+hr{
+  width: 70%;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+main{
+  height: calc(100dvh - 13rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+main h1{
+  color: #FFF;
+  font-size: 3rem;
+}
+main span{
+  font-size: .9rem;
+  font-weight: 700;
+  color: rgb(157, 109, 21);
+  margin-bottom: 2rem;
+}
+main form {
+  position: relative;
+  display: flex;
+  max-width: 800px;
+  width: 100%; 
+  gap: 1rem;
+}
+main form input{
+  padding: 1rem 1rem;
+  border: none;
+  width: 100%;
+  border-radius: 10px 0 15px 0;
+}
+main form input:focus{
+  outline: none;
+}
+main form input::placeholder {
+  text-align: center;
+}
+main form button{
+  position: absolute;
+  right: 0;
+  padding: 1rem 2rem;
+  background-color: orange;
+  border: none;
+  border-radius: 0px 0 10px 0;
+  cursor: pointer;
+  transition: .4s;
+}
+main form button:hover {
+  background-color: #222;
+  color: #FFF;
+}
+
+footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1rem 0;
+  gap: .5rem;
+}
+footer p {
+  font-weight: 700;
+}
+footer p span{
+  color: orange;
+}
+footer .social-links{
+  display: flex;
+  color: #FFF;
+  gap: 1rem;
+}
+footer .social-links a {
+  text-decoration: none;
+  color: #FFF;
+}
