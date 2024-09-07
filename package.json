@@ -5,7 +5,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "migrate": "sequelize db:migrate",
+    "migrate:undo": "seuqelize db:migrate:undo"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -15,6 +17,7 @@
     "sequelize": "^6.37.3"
   },
   "devDependencies": {
+    "nodemon": "^3.1.4",
     "sequelize-cli": "^6.6.2"
   }
 }
