@@ -8,20 +8,23 @@ services:
     depends_on:
       - mysql 
     volumes:
-      - .:/usr/app 
-      - node_modules:/usr/app/node_modules
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
       NODE_ENV: development
+      DB_HOST: mysql
     networks:
       - app-network
 
   mysql:
     image: mysql:8.0.33
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: password
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     ports:
       - '3306:3306'
+    networks:
+      - app-network 
 
 networks:
   app-network:
