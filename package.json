@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "migrate": "sequelize db:migrate",
-    "migrate:undo": "seuqelize db:migrate:undo"
+    "migrate:undo": "sequelize db:migrate:undo"
   },
   "dependencies": {
     "cors": "^2.8.5",
