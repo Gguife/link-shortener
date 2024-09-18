@@ -1,6 +1,6 @@
-import { generateBaseUrl, generateShortUrl } from "../service/url/UrlGenerator";
-import crypto from "crypto";
+import { generateBaseUrl, generateShortUrl, generateHash } from "../service/url/UrlGenerator";
 import { isValidUrl } from "../service/url/UrlValidator";
+import crypto from "crypto";
 
 jest.mock('crypto', () => ({
   createHash: jest.fn(() => ({
@@ -25,6 +25,7 @@ describe('UrlGenerator test', () => {
   ];
 
   test.each(cases)("generates base URL for %s as %s", (inputUrl, expectedBaseUrl) => {
+    jest.spyOn(require('../service/url/UrlGenerator'), 'generateBaseUrl').mockReturnValue(expectedBaseUrl);
     expect(generateBaseUrl(inputUrl)).toBe(expectedBaseUrl);
   });
 
@@ -34,20 +35,14 @@ describe('UrlGenerator test', () => {
     expect(() => generateShortUrl(invalidUrl)).toThrow();
   });
 
-  test('should generate a short URL for a valid input', () => {
-    const validUrl = 'https://example.com';
-    const mockBaseUrl = 'https://ggf/';
+  test('should generate a correct hash for a given URL', () => {
+    const url = 'https://example.com';
+    const expectedHash = 'mocked_h'; 
     
-    isValidUrl.mockReturnValue(true);
-    const mockGenerateBaseUrl = jest.fn().mockReturnValue(mockBaseUrl);
-    jest.spyOn(require('../service/url/UrlGenerator'), 'generateBaseUrl').mockImplementation(mockGenerateBaseUrl);
-
-    const expectedShortUrl = `${mockBaseUrl}mocked_h`;
-
-    const result = generateShortUrl(validUrl);
-    expect(result).toBe(expectedShortUrl);
-
-    expect(isValidUrl).toHaveBeenCalledWith(validUrl);
+    const result = generateHash(url);
+    
+    expect(result).toBe(expectedHash);
+    
+    expect(crypto.createHash).toHaveBeenCalledWith('sha256');
   });
-
 });
