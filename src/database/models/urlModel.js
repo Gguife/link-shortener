@@ -18,7 +18,7 @@ Url.init(
         isUrl: true,
       }
     },
-    shortUrl:{
+    hash:{
       type: DataTypes.STRING(10),
       allowNull: false,
       unique: true

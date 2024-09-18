@@ -16,7 +16,7 @@ module.exports = {
           isUrl: true,
         }
       },
-      shortUrl:{
+      hash:{
         type: Sequelize.STRING(10),
         allowNull: false,
         unique: true
