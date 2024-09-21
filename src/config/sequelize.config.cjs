@@ -6,7 +6,7 @@ module.exports = {
   username: DB_USER,
   password: DB_PASSWORD,
   database: DB_NAME,
-  host: "localhost",
+  host: 'localhost',
   dialect: 'mysql',
   port: DB_PORT
 };
