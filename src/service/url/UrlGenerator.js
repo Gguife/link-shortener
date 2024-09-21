@@ -1,5 +1,4 @@
 import crypto from "crypto";
-import { isValidUrl } from "./UrlValidator.js";
 
 export const generateBaseUrl = (url) => {
   const urlParts = url.split(':');
