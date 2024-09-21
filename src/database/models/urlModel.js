@@ -1,10 +1,10 @@
 import { Model, DataTypes } from "sequelize";
-import sequelize from "../config/conn.js";
+import sequelize from "../../config/conn.js";
 
 
-class Url extends Model {}
+class Urls extends Model {}
 
-Url.init(
+Urls.init(
   {
     id: {
       type: DataTypes.UUID,
@@ -30,8 +30,9 @@ Url.init(
   },
   {
     sequelize,
-    modelName: 'Url',
+    modelName: 'urls',
+    timestamps: false,
   }
 );
 
-export default Url;
+export default Urls;

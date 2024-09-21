@@ -1,10 +1,11 @@
 import { Model, DataTypes } from "sequelize";
-import sequelize from "../config/conn";
-import Url from "./urlModel";
+import sequelize from "../../config/conn.js";
+import Url from "./urlModel.js";
+import Urls from "./urlModel.js";
 
-class Click extends Model {}
+class Clicks extends Model {}
 
-Click.init(
+Clicks.init(
   {
     id: {
       type: DataTypes.BIGINT,
@@ -34,11 +35,11 @@ Click.init(
   },
   {
     sequelize,
-    modelName: 'Click',
+    modelName: 'clicks',
   }
 )
 
-Click.belongsTo(Url, {foreignKey: 'urlId'});
-Url.hasMany(Click, {foreignKey: 'urlId'});
+Clicks.belongsTo(Urls, {foreignKey: 'urlId'});
+Urls.hasMany(Clicks, {foreignKey: 'urlId'});
 
-export default Click;
+export default Clicks;
