@@ -39,10 +39,10 @@ router.get('/:hash', async (req, res) => {
     const original_url = await Url.findOne({ where: { hash: hash }});
     
     if(!original_url){
-      return res.status(404).json({error: "Url orginal não encontrada!"})
+      return res.status(404).json({error: "Url original não encontrada!"})
     }
 
-    res.redirect(original_url.originalUrl);
+    res.status(302).redirect(original_url.originalUrl);
   }catch(error){
     res.status(500).send(error.message);
   }
