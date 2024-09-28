@@ -2,6 +2,7 @@ import express from "express";
 import Url from '../database/models/urlModel.js';
 import { generateBaseUrl, generateHash } from "../service/url/UrlGenerator.js";
 import { isValidUrl } from "../service/url/UrlValidator.js";
+import { registerClick } from "../service/click/clickManagement.js";
 
 const router = express.Router();
 
@@ -61,6 +62,30 @@ router.get('/:hash', async (req, res) => {
     if(!original_url){
       return res.status(404).json({error: "Url original não encontrada!"})
     }
+
+    const clickDetails = {
+      urlId: original_url.id,
+      ipAddress: req.ip,
+      userAgent: req.headers['user-agent']
+    }
+
+    // Verificar se já existe um clique registrado pelo mesmo IP para a mesma URL nos últimos 30 minutos
+    const clickExists = await Clicks.findOne({
+      where: {
+        urlId: original_url.id,
+        ipAddress: clickDetails.ipAddress,
+        createdAt: {
+          [Op.gte]: new Date(Date.now() - 30 * 60 * 1000) 
+        }
+      }
+    });
+
+    if (clickExists) {
+      return res.status(200).json({ message: "Clique já registrado." });
+    }
+    
+
+    await registerClick(clickDetails);
 
     res.status(302).redirect(original_url.originalUrl);
   }catch(error){
