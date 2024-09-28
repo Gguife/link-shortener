@@ -25,16 +25,24 @@ router.post('/shorten', async (req, res) => {
   if(!original_url) return res.status(400).json({message: "link não fornecido"});
 
   if(!isValidUrl(original_url)) return res.status(400).json({error: "Link inválido"});
-  
+
   const hash = generateHash(original_url);
 
   try{
+    const base_url = generateBaseUrl(original_url);
+
+    const existsUrl = await Url.findOne({ where: { originalUrl: original_url }})
+
+    if(existsUrl){
+      const short_url = `${base_url}${existsUrl.hash}`;
+      return res.status(200).json({ short_url: short_url }) 
+    }
+
     await Url.create({
       originalUrl: original_url,
       hash: hash
     })
 
-    const base_url = generateBaseUrl(original_url);
     const short_url = `${base_url}${hash}`;
 
     res.status(201).json({ short_url: short_url });
