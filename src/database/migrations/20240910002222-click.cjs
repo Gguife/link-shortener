@@ -17,10 +17,6 @@ module.exports = {
         },
         allowNull: false
       },
-      clickDate: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW
-      },
       ipAddress:{
         type: Sequelize.STRING(46),
         allowNull: false,
@@ -28,6 +24,16 @@ module.exports = {
       userAgent:{
         type: Sequelize.STRING(255),
         allowNull: false,
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), // Garante que o timestamp padrão é o momento da criação
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), // Atualiza o timestamp automaticamente quando a linha é atualizada
       }
     })
   },

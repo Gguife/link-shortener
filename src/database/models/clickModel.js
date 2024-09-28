@@ -20,10 +20,6 @@ Clicks.init(
       },
       allowNull: false
     },
-    clickDate: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
-    },
     ipAddress:{
       type: DataTypes.STRING(46),
       allowNull: false,
@@ -36,6 +32,9 @@ Clicks.init(
   {
     sequelize,
     modelName: 'clicks',
+    timestamps: true, 
+    createdAt: 'createdAt', 
+    updatedAt: 'updatedAt'  
   }
 )
 
