@@ -6,6 +6,19 @@ import { isValidUrl } from "../service/url/UrlValidator.js";
 const router = express.Router();
 
 
+router.get('/all-urls', async (req, res) => {
+  try{
+    const urls = await Url.findAll({
+      attributes: ['originalUrl', 'hash']
+    });
+
+    res.status(200).json({ urls });
+  }catch(error){
+    res.status(500).send(error.message);
+  }
+})
+
+
 router.post('/shorten', async (req, res) => {
   const original_url = req.body.original_url;
 
@@ -29,7 +42,6 @@ router.post('/shorten', async (req, res) => {
     res.status(500).send(error.message);
   }
 })
-
 
 
 router.get('/:hash', async (req, res) => {
