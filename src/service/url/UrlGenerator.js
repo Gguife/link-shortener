@@ -2,7 +2,7 @@ import crypto from "crypto";
 
 export const generateBaseUrl = (url) => {
   const urlParts = url.split(':');
-  return `${urlParts[0]}://ggf/`;
+  return `${urlParts[0]}://localhost:8080/`;
 }
 
 export const generateHash = (url) => {
