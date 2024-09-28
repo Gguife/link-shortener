@@ -13,6 +13,31 @@ const app = express();
 app.use(express.json());
 app.use('/', userController);
 
+
+describe('GET /all-urls', () => {
+  test('should return all urls and your hashes with status 200', async () => {
+    const mockUrls = [
+      { originalUrl: 'http://google.com', hash: 'abcd1234' },
+      { originalUrl: 'http://example.com', hash: 'xyz9876' },
+    ];
+
+    Url.findAll.mockResolvedValue(mockUrls);
+
+    const response = await request(app).get('/all-urls');
+    expect(response.status).toBe(200);
+    expect(response.body.urls).toEqual(mockUrls);
+  });
+  test('should return status 500 if there is an error', async () => {
+    Url.findAll.mockRejectedValue(new Error('Erro no banco de dados'));
+
+    const response = await request(app).get('/all-urls');
+
+    expect(response.status).toBe(500);
+    expect(response.text).toBe('Erro no banco de dados');
+  });
+})
+
+
 describe('POST /shorten', () => {
   test('should return 400 if no URL is provided', async () => {
     const response = await request(app).post('/shorten').send({});
