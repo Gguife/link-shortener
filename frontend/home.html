@@ -14,10 +14,38 @@
   <main>
     <h1>Encurtador</h1>
     <span>Seu novo encurtador de URL</span>
-    <form method="POST">
-      <input type="text" name="url" placeholder="Insira a URL">
+    
+    <!-- Formulário para encurtar URLs -->
+    <form id="shorten-form">
+      <input type="text" name="url" id="url-input" placeholder="Insira a URL" required>
       <button type="submit">Encurtar</button>
     </form>
+    
+    <!-- Exibir o resultado -->
+    <div id="shortened-url" style="display: none;">
+      <h2>URL Encurtada:</h2>
+      <p id="short-url"></p>
+    </div>
+    
+    <!-- Botão para visualizar cliques -->
+    <button id="view-clicks">Ver Estatísticas de Cliques</button>
+    
+    <!-- Exibir estatísticas de cliques -->
+    <div id="clicks-stats" style="display: none;">
+      <h2>Estatísticas de Cliques:</h2>
+      <table id="clicks-table">
+        <thead>
+          <tr>
+            <th>IP Address</th>
+            <th>User Agent</th>
+            <th>Data do Clique</th>
+          </tr>
+        </thead>
+        <tbody id="clicks-body">
+          <!-- Dados dos cliques serão inseridos aqui -->
+        </tbody>
+      </table>
+    </div>
   </main>
   <footer>
     <p>Feito por <span>gguife</span></p>
@@ -27,5 +55,74 @@
       <a href="https://www.linkedin.com/in/gguife/">Linkedin</a>
     </div>
   </footer>
+
+  <script>
+    const shortenForm = document.getElementById('shorten-form');
+    const urlInput = document.getElementById('url-input');
+    const shortUrlDisplay = document.getElementById('short-url');
+    const shortenedUrlDiv = document.getElementById('shortened-url');
+    const viewClicksButton = document.getElementById('view-clicks');
+    const clicksStatsDiv = document.getElementById('clicks-stats');
+    const clicksBody = document.getElementById('clicks-body');
+
+    // Encurtar URL
+    shortenForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const url = urlInput.value;
+
+      try {
+        const response = await fetch('http://localhost:8080/shorten', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ original_url: url }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          shortUrlDisplay.textContent = data.short_url;
+          shortenedUrlDiv.style.display = 'block';
+        } else {
+          alert(data.error || "Erro ao encurtar URL.");
+        }
+      } catch (error) {
+        console.error("Erro ao encurtar URL:", error);
+        alert("Erro ao encurtar URL.");
+      }
+    });
+
+    // Ver Estatísticas de Cliques
+    viewClicksButton.addEventListener('click', async () => {
+      try {
+        const response = await fetch('http://localhost:8080/click/all-clicks');
+
+        const data = await response.json();
+
+        if (response.ok) {
+          clicksBody.innerHTML = ''; // Limpa dados anteriores
+
+          data.clicks.forEach(click => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${click.ipAddress}</td>
+              <td>${click.userAgent}</td>
+              <td>${new Date(click.createdAt).toLocaleString()}</td>
+            `;
+            clicksBody.appendChild(row);
+          });
+
+          clicksStatsDiv.style.display = 'block';
+        } else {
+          alert("Erro ao carregar estatísticas de cliques.");
+        }
+      } catch (error) {
+        console.error("Erro ao carregar estatísticas de cliques:", error);
+        alert("Erro ao carregar estatísticas de cliques.");
+      }
+    });
+  </script>
 </body>
 </html>

@@ -101,3 +101,86 @@ footer .social-links a {
   text-decoration: none;
   color: #FFF;
 }
+
+#shortened-url{
+  padding: 2rem;
+  text-align: center;
+}
+#shortened-url h2{
+  color: #FFF;
+}
+#shortened-url p{
+  margin: .5rem 0;
+  background-color: #FFF;
+  padding: .4rem 1rem;
+}
+
+
+#view-clicks {
+  background-color: orange;
+  padding: .8rem 2rem;
+  margin-top: 2rem;
+  color: #000;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: .3s;
+}
+#view-clicks:hover{
+  background-color: #222;
+  color: #FFF;
+}
+
+#clicks-stats {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #2b2b2b;
+  border-radius: 8px;
+}
+
+#clicks-stats h2 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+}
+
+#clicks-stats table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#clicks-stats table thead {
+  background-color: orange;
+  color: #000;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#clicks-stats table th, #clicks-stats table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#clicks-stats table tbody tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+#clicks-stats table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+#clicks-stats table tbody tr:hover {
+  background-color: #eaf4ff;
+}
+
+#clicks-stats table tbody td {
+  color: #333;
+}
+
+#clicks-stats table tbody td:hover {
+  background-color: #f0f0f0;
+}
