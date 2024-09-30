@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,6 +7,7 @@
 }
 body{
   background-color: #333;
+  font-family: "Roboto", sans-serif;
 }
 
 header{
@@ -79,27 +82,24 @@ main form button:hover {
 }
 
 footer{
+  text-align: center;
+}
+footer p {
+  color: #000;
+  padding: .5rem 0;
+}
+footer p a{
+  color: rgb(141, 96, 12);
+}
+footer .footer-icons{
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  padding: 1rem 0;
-  gap: .5rem;
-}
-footer p {
-  font-weight: 700;
-}
-footer p span{
-  color: orange;
-}
-footer .social-links{
-  display: flex;
-  color: #FFF;
+  margin-top: 1rem;
   gap: 1rem;
 }
-footer .social-links a {
-  text-decoration: none;
-  color: #FFF;
+footer .footer-icons a {
+  opacity: .6;
 }
 
 #shortened-url{
